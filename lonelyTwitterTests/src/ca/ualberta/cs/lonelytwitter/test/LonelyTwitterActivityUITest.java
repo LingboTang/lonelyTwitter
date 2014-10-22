@@ -35,6 +35,18 @@ public class LonelyTwitterActivityUITest extends
 		((Button) activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.save)).performClick();
 	}
 	
-//TODO: Add your code here:
-			
+    //TODO: Add your code here ...
+	@UiThreadTest
+	public void testMakeTweet(){
+		LonelyTwitterActivity lta= getActivity();
+		int oldLength = lta.getAdapter().getCount();
+		
+		makeTweet("Hello");
+		ArrayAdapter<NormalTweetModel> aa = lta.getAdapter();
+		assertEquals(oldLength+1, aa.getCount());
+		assertTrue(aa.getItem(aa.getCount()-1) instanceof NormalTweetModel);
+		NormalTweetModel ntm = aa.getItem(aa.getCount()-1);
+		assertEquals(ntm.getText(), "Hello");
+	}
+
 }
